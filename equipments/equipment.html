@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equipment Details</title>
+
+  <!-- Font Awesome for Hamburger -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Equipment CSS -->
+  <link rel="stylesheet" href="equipment.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR (UPDATED — Same as new lab pages) ===== -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo" style="font-family:'Lucida Handwriting', cursive;">
+      Scientific Indian
+    </a>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="menu">
+      <li><a href="../labs/thermo.html" onclick="closeMenu()">Thermodynamics</a></li>
+      <li><a href="../labs/tom.html" onclick="closeMenu()">Theory Of Mechanics</a></li>
+      <li><a href="../labs/fluid.html" onclick="closeMenu()">Fluid Mechanics</a></li>
+      <li><a href="../labs/fm.html" onclick="closeMenu()">Fluid Machines</a></li>
+      <li><a href="../labs/heat.html" onclick="closeMenu()">Heat Transfer</a></li>
+      <li><a href="../labs/rac.html" onclick="closeMenu()">RAC</a></li>
+      <li><a href="../labs/ic.html" onclick="closeMenu()">IC Engines</a></li>
+      <li><a href="../labs/production.html" onclick="closeMenu()">Production</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="equip-container">
+
+    <h2 id="equipName" class="equip-title"></h2>
+<div class="equip-image-wrapper">
+  <img id="equipImg" src="" alt="Equipment Image" class="equip-image" />
+</div>
+    <div class="equip-card">
+      <h3>Overview</h3>
+      <p id="equipShort"></p>
+    </div>
+
+    <div class="equip-card">
+      <h3>Description</h3>
+      <p id="equipDesc"></p>
+    </div>
+
+    <div class="equip-card">
+      <h3>Specifications</h3>
+      <ul id="equipSpecs"></ul>
+    </div>
+
+    <div class="equip-card">
+      <h3>Services Required</h3>
+      <ul id="equipServices"></ul>
+    </div>
+
+    <div class="equip-card" id="noteBox" style="display:none;">
+      <h3>Notes</h3>
+      <p id="equipNotes"></p>
+    </div>
+
+  </div>
+
+  <!-- Load data file -->
+  <script src="../data/lab-data.js"></script>
+
+  <!-- MENU SCRIPT -->
+  <script>
+    function toggleMenu() {
+      document.querySelector(".menu").classList.toggle("open");
+    }
+    function closeMenu() {
+      document.querySelector(".menu").classList.remove("open");
+    }
+  </script>
+
+  <!-- DATA SCRIPT -->
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+
+    const allLabs = Object.values(labData).flat();
+
+    const equip = allLabs.find(item => item.id === id);
+
+    if (!equip) {
+      document.body.innerHTML = "<h2 style='padding:20px;color:red;'>Equipment Not Found</h2>";
+      throw new Error("Equipment Not Found");
+    }
+
+    document.getElementById("equipName").textContent = equip.name;
+    document.getElementById("equipImg").src = equip.img;
+
+    document.getElementById("equipShort").textContent = equip.short;
+    document.getElementById("equipDesc").textContent = equip.description;
+
+    if (Array.isArray(equip.specifications)) {
+      equip.specifications.forEach(spec => {
+        document.getElementById("equipSpecs").innerHTML += `<li>${spec}</li>`;
+      });
+    }
+
+    if (Array.isArray(equip.services)) {
+      equip.services.forEach(s => {
+        document.getElementById("equipServices").innerHTML += `<li>${s}</li>`;
+      });
+    }
+
+    if (equip.notes) {
+      document.getElementById("noteBox").style.display = "block";
+      document.getElementById("equipNotes").textContent = equip.notes;
+    }
+  </script>
+
+  <!-- Floating Home Button -->
+<a href="../index.html" class="home-btn">
+  <i class="fas fa-home"></i>
+</a>
+
+</body>
+
+</html>

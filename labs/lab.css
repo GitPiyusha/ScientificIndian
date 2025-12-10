@@ -1,0 +1,252 @@
+/* ========================================
+   MODERN RESPONSIVE LAB CSS
+======================================== */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html,body {
+  font-family:'Inter', sans-serif;
+  background:#fafafa;
+  color:#333;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   NAVBAR
+======================================== */
+.navbar {
+  background:#111;
+  padding:0.8rem 3%;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  color:#ff4d4d;
+  font-size:1.7rem;
+  font-weight:900;
+  text-decoration:none;
+  white-space:nowrap;        /* 🔥 ALWAYS one line */
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Fix navbar height so content touches it */
+body { padding-top: 70px; }
+
+/* Hamburger */
+.hamburger {
+  font-size:30px;
+  color:white;
+  cursor:pointer;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:0.3s;
+}
+.hamburger:hover { background:rgba(255,255,255,0.1); }
+
+/* MENU */
+.menu {
+  position:absolute;
+  top:70px;
+  right:20px;
+  background:#111;
+  width:260px;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  padding:15px 0;
+  display:none;
+  flex-direction:column;
+
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.menu.open {
+  display:flex;
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.menu li { list-style:none; }
+
+.menu a {
+  display:block;
+  padding:12px 22px;
+  color:#fff;
+  font-size:1rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:0.25s;
+}
+.menu a:hover {
+  background:#ff4d4d;
+  padding-left:28px;
+}
+
+/* ========================================
+   PAGE HEADER — NO GAP 🔥
+======================================== */
+.lab-header {
+  text-align:center;
+  padding:40px 20px 40px;  /* Removed gap from top */
+  color:white;
+  margin-top:0;
+}
+
+.lab-header h2 {
+  font-size:2.6rem;
+  font-weight:650;
+  text-rendering: optimizeLegibility;
+
+  white-space:nowrap;           /* 🔥 No wrapping */
+  overflow:hidden;
+  
+}
+
+.lab-header p { font-size:1.2rem; }
+
+/* MOBILE FIX */
+@media (max-width:600px) {
+  .lab-header { padding:30px 10px 30px; }
+
+  .lab-header h2 {
+    font-size:1.8rem;
+    font-weight:650;
+    white-space:nowrap;     /* 🔥 Always one line */
+  }
+
+  .lab-header p { font-size:1rem; }
+
+  .logo {
+    font-size:1.4rem;       /* Logo fits without breaking */
+  }
+}
+
+/* ========================================
+   SEARCH INPUT
+======================================== */
+.search-box {
+  max-width:700px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+.search-box input {
+  width:100%;
+  padding:16px 26px;
+  font-size:1.1rem;
+  border:none;
+  border-radius:50px;
+  outline:none;
+  box-shadow:0 8px 20px rgba(0,0,0,0.12);
+  transition:0.25s;
+}
+
+/* ========================================
+   GRID
+======================================== */
+.lab-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+  gap:30px;
+  padding:20px 5%;
+}
+
+/* MOBILE GRID */
+@media (max-width:768px) {
+  .lab-grid {
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:20px;
+  }
+}
+
+@media (max-width:480px) {
+  .lab-grid {
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+}
+
+@media (max-width:360px) {
+  .lab-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* ========================================
+   CARD
+======================================== */
+.lab-card {
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.10);
+  transition:0.35s;
+  animation:fadeUp 0.6s ease forwards;
+  opacity:0;
+}
+
+.card-banner {
+  width:100%;
+  height:140px;
+}
+
+.lab-card h4 {
+  font-size:1.1rem;
+  color:#d62828;
+  font-weight:700;
+  padding:14px 16px 6px;
+}
+
+.lab-card p {
+  color:#666;
+  padding:0 16px 14px;
+  font-size:0.95rem;
+  line-height:1.55;
+}
+
+/* Disable hover zoom on mobile */
+@media (max-width:480px) {
+  .lab-card:hover {
+    transform:none !important;
+    box-shadow:0 12px 30px rgba(255,77,77,0.20);
+  }
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ========================================
+   HOME BUTTON
+======================================== */
+.home-btn {
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:red;
+  color:white;
+  font-size:28px;
+  width:55px;
+  height:55px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  text-decoration:none;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition:0.3s;
+}

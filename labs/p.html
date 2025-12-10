@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Engineering</title>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- ========================================
+       MODERN RESPONSIVE LAB CSS
+  ======================================== -->
+  <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Inter', sans-serif;
+  background:#fafafa;
+  color:#333;
+  padding-top:80px;
+}
+
+/* NAVBAR */
+.navbar {
+  background:#111;
+  padding:0.8rem 3%;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  color:#ff4d4d;
+  font-size:1.9rem;
+  font-weight:900;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+/* Hamburger */
+.hamburger {
+  font-size:30px;
+  color:white;
+  cursor:pointer;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:0.3s;
+}
+.hamburger:hover { background:rgba(255,255,255,0.1); }
+
+/* MENU */
+.menu {
+  position:absolute;
+  top:72px;
+  right:20px;
+  background:#111;
+  width:260px;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  padding:15px 0;
+  display:none;
+  flex-direction:column;
+  animation:fadeIn 0.25s ease-out;
+}
+.menu.open { display:flex; }
+
+.menu li { list-style:none; }
+.menu a {
+  display:block;
+  padding:12px 22px;
+  color:#fff;
+  font-size:1rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:0.25s;
+}
+.menu a:hover {
+  background:#ff4d4d;
+  padding-left:28px;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(-5px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* HEADER */
+.lab-header { text-align:center; padding:100px 20px 60px; color:white; } 
+.lab-header h2 { font-size:3rem; font-weight:800; margin-bottom:10px; } 
+.lab-header p { font-size:1.2rem; opacity:0.95; }
+
+/* CARD CONTAINER — SINGLE COLUMN */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* CARD STYLE */
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+  transition: 0.35s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 25px 70px rgba(255,77,77,0.28);
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  color: #d62828;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: red;
+  color: white;
+  font-size: 28px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  transition: 0.3s ease;
+}
+.home-btn:hover { background:#b00000; transform:scale(1.15); }
+
+/* Responsive */
+@media(max-width:600px){
+  .logo { font-size:1.5rem; }
+  .hamburger { font-size:26px; }
+  .lab-header h2 { font-size:2.2rem; }
+}
+  </style>
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo" style="font-family:'Lucida Handwriting', cursive;">Scientific Indian</a>
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+
+    <ul class="menu" id="menuList">
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="tom.html">Theory Of Mechanics</a></li>
+      <li><a href="fluid.html">Fluid Mechanics</a></li>
+      <li><a href="fm.html">Fluid Machines</a></li>
+      <li><a href="heat.html">Heat Transfer</a></li>
+      <li><a href="rac.html">Refrigeration & Air Conditioning</a></li>
+      <li><a href="ic.html">IC Engines</a></li>
+      <li><a href="production.html">Production Engineering</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="lab-header" style="background: linear-gradient(to right, hsl(0, 66%, 54%), hsl(0, 88%, 56%));">
+    <h2>Production Engineering</h2>
+    <p>Explore all equipment categories used in production labs.</p>
+  </section>
+
+  <!-- CARDS -->
+  <section class="card-container">
+    <div class="card"><h3>All Types of Dynamometers</h3><p>Explore a wide range of mechanical, hydraulic, and electrical dynamometers.</p></div>
+    <div class="card"><h3>All Types of Lathe Tool Dynamometers</h3><p>Find various lathe and tool-force measuring systems.</p></div>
+    <div class="card"><h3>All Types of Board Meters</h3><p>Includes pressure, flow, and calibration board meters.</p></div>
+    <div class="card"><h3>All Types of Cut Sections</h3><p>Visual cut-section models to understand machine internals.</p></div>
+    <div class="card"><h3>Calibration & Fluid Trainers</h3><p>Hands-on lab setups for calibration and training.</p></div>
+  </section>
+
+<script>
+function toggleMenu() {
+  document.getElementById("menuList").classList.toggle("open");
+}
+</script>
+
+<a href="../index.html" class="home-btn"><i class="fas fa-home"></i></a>
+
+</body>
+</html>

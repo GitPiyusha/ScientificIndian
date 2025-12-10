@@ -1,0 +1,208 @@
+/* ===== UNIVERSAL NAVBAR (same as labs) ===== */
+
+.navbar {
+  background: #111;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Logo */
+.navbar .logo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ff4d4d;
+  text-decoration: none;
+}
+
+/* Hamburger (always visible) */
+.hamburger {
+  font-size: 26px;
+  color: #ff4d4d;
+  cursor: pointer;
+  display: block;
+}
+
+/* Dropdown menu - hidden by default */
+.menu {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  background: #111;
+  list-style: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+/* When opened */
+.menu.open {
+  display: flex;
+}
+
+.menu li a {
+  color: #ff4d4d;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.menu li a:hover {
+  color: white;
+}
+
+
+/* ------ PAGE LAYOUT ------ */
+.equip-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 35px 20px;
+  background: #f5f5f5; /* light neutral background */
+}
+
+.equip-title {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #ff3333;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* ------ EQUIPMENT CARD ------ */
+.equip-card {
+  background: #fff; /* white card background */
+  color: #1a1a1a; /* dark text */
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.equip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255,0,0,0.15); /* subtle red shadow */
+  border-left: 4px solid #ff4d4d; /* elegant red accent */
+}
+
+.equip-card h3 {
+  margin-bottom: 12px;
+  color: #ff4d4d;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.equip-card ul {
+  padding-left: 20px;
+  line-height: 26px;
+}
+
+.equip-card ul li::marker {
+  color: #ff4d4d;
+}
+
+/* ------ EQUIPMENT IMAGE ------ */
+/* ------ EQUIPMENT IMAGE WRAPPER ------ */
+.equip-image-wrapper {
+  width: 100%;
+  max-height: 450px;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.equip-image-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255,0,0,0.15);
+  border-left: 4px solid #ff4d4d;
+}
+
+/* ------ EQUIPMENT IMAGE ------ */
+.equip-image {
+  width: 100%;
+  height: 100%;
+  max-height: 420px; /* Slightly less than wrapper to account for padding */
+  object-fit: contain;    /* Crucial: preserves aspect ratio, fits fully */
+  object-position: center;
+  border-radius: 8px;
+  transition: transform 0.4s ease;
+}
+
+.equip-image:hover {
+  transform: scale(1.03);
+}
+
+/* Mobile adjustments for image */
+@media (max-width: 768px) {
+  .equip-image-wrapper {
+    max-height: 350px;
+    padding: 10px;
+  }
+  
+  .equip-image {
+    max-height: 330px;
+  }
+}
+
+@media (max-width: 480px) {
+  .equip-image-wrapper {
+    max-height: 280px;
+  }
+  
+  .equip-image {
+    max-height: 260px;
+  }
+}
+
+/* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: red;
+  color: white;
+  font-size: 28px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  transition: 0.3s ease;
+}
+
+/* Hover Animation */
+.home-btn:hover {
+  background: #b00000;
+  transform: scale(1.15);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .home-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+    bottom: 20px;
+    right: 20px;
+  }
+}

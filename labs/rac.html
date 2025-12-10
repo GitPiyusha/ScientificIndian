@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refrigeration & Air Conditioning Lab</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f8fd;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 80px; /* Reduced slightly for mobile */
+  }
+
+  /* ===== NAVBAR – FULLY RESPONSIVE ===== */
+  .navbar {
+    background: #111;
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .logo {
+    color: #ff4d4d;
+    font-size: clamp(1.4rem, 5vw, 1.9rem); /* Auto-scales perfectly */
+    font-weight: 900;
+    font-family: 'Lucida Handwriting', cursive;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70vw;
+  }
+
+  .hamburger {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    display: block;
+  }
+
+  .menu {
+    position: absolute;
+    top: 75px;
+    right: 20%;
+    width: 260px;
+    background: #222;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    padding: 15px 0;
+    display: none;
+    flex-direction: column;
+    
+  }
+
+  .menu.open { display: flex; }
+
+   .menu li {
+      list-style: none;
+    }
+
+  .menu li a {
+    display: block;
+      padding: 12px 22px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+      transition: 0.2s;
+  }
+
+  .menu li a:hover {
+    background: #ff4d4d;
+    transform: scale(1.05);
+  }
+
+  /* ===== HEADER – RESPONSIVE ===== */
+  .page-header {
+    text-align: center;
+    padding: 80px 5% 50px;
+    background: linear-gradient(to right, hsl(0, 66%, 54%), hsl(0, 88%, 56%));
+    color: white;
+    margin-bottom: 40px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 7vw, 3rem);
+    margin-bottom: 12px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  }
+
+  .page-header p {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    opacity: 0.95;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* SEARCH BOX */
+  .search-box {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    padding: 0 5%;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    outline: none;
+  }
+
+  /* CONTENT GRID */
+  #labContainer {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5% 100px;
+  }
+
+  .section-title {
+    margin: 70px 0 40px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #d32f2f;
+    border-bottom: 5px solid #ff4d4d;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(255,77,77,0.25);
+  }
+
+  .card-top {
+    height: 200px;
+    background: linear-gradient(135deg, #ff4d4d, #ff7a7a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .card-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card h3 {
+    font-size: 1.35rem;
+    color: #d32f2f;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .card p {
+    color: #555;
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  /* RESPONSIVE BREAKPOINTS */
+  @media (max-width: 768px) {
+    .lab-grid { gap: 25px; }
+    .section-title { font-size: 1.8rem; }
+    .card-top { height: 180px; }
+  }
+
+  @media (max-width: 480px) {
+    .navbar { padding: 1rem 4%; }
+    .page-header { padding: 70px 5% 40px; }
+    .search-box { padding: 0 5%; }
+    .section-title { font-size: 1.6rem; }
+  }
+
+  /* Floating Home Button */
+  .home-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: red;
+    color: white;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: 0.3s;
+  }
+
+  .home-btn:hover {
+    transform: scale(1.15);
+    background: #c00;
+  }
+
+  @media (max-width: 480px) {
+    .home-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      bottom: 15px;
+      right: 15px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo" style="font-family:'Lucida Handwriting', cursive;">Scientific Indian</a>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="menu">
+      <li><a href="thermo.html" onclick="closeMenu()">Thermodynamics</a></li>
+      <li><a href="tom.html" onclick="closeMenu()">Theory Of Mechanics</a></li>
+      <li><a href="fluid.html" onclick="closeMenu()">Fluid Mechanics</a></li>
+      <li><a href="fm.html" onclick="closeMenu()">Fluid Machines</a></li>
+      <li><a href="heat.html" onclick="closeMenu()">Heat Transfer</a></li>
+      <li><a href="rac.html" onclick="closeMenu()">Refrigeration & Air Conditioning</a></li>
+      <li><a href="ic.html" onclick="closeMenu()">IC Engines</a></li>
+      <li><a href="production.html" onclick="closeMenu()">Production Engineering</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <h1>Refrigeration & Air Conditioning Lab</h1>
+    <p>Vapour compression • Ice plant • Air conditioning test rigs • Cut sections</p>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search equipment...">
+  </div>
+
+  <!-- CONTENT -->
+  <main id="labContainer"></main>
+
+  <!-- MENU SCRIPT -->
+  <script>
+    function toggleMenu() {
+      document.querySelector(".menu").classList.toggle("open");
+    }
+    function closeMenu() {
+      document.querySelector(".menu").classList.remove("open");
+    }
+  </script>
+
+  <!-- DATA + RENDERING SCRIPT -->
+  <script>
+    const data = [
+      { section: "REFRIGERATION TRAINERS" },
+      { id: "refrigeration-trainer-general", name: "General Cycle Type", short: "Open type vapour compression cycle." },
+      { id: "refrigeration-trainer-domestic", name: "Domestic Type",short: "Sealed-system domestic refrigerator." },
+      { id: "refrigeration-trainer-household", name: "Household 180L Refrigerator", short: "Cut-section & working model." },
+
+      { section: "AIR CONDITIONING TRAINERS" },
+      { id: "ac-trainer-general", name: "General Cycle Type", short: "Window/Split AC trainer." },
+      { id: "ac-trainer-recirculating", name: "RECIRCULATION TYPE AIR CONDITIONING TRAINER", short: "A functional air conditioning trainer designed to demonstrate recirculation, cooling, heating, humidification, and airflow control principles using real system components." },
+      { id: "ac-trainer-window", name: "WINDOW AIR-CONDITIONING TRAINER", short: "A fully functional window air conditioning system designed to study performance parameters including COP, cooling capacity, and power consumption." },
+
+        {section:"Mechanical Heat Pump Trainer"},
+  {"id": "mechanical-heat-pump-trainer",
+  "name": "MECHANICAL HEAT PUMP TRAINER (Air to Water)",
+
+  "short": "A fully instrumented air-to-water mechanical heat pump trainer designed to demonstrate the vapour compression heat pump cycle, calculate actual & Carnot COP, perform heat balance, and determine heat transfer coefficients of evaporator and condenser.",
+},
+{
+  "id": "mechanical-heat-pump-trainer-water-to-water",
+  "name": "MECHANICAL HEAT PUMP TRAINER (Water to Water)",
+
+  "short": "A compact, fully instrumented water-to-water mechanical heat pump trainer using R-134a refrigerant to demonstrate the vapour compression heat pump cycle, verify energy conservation, calculate actual, theoretical & Carnot COPs, and determine heat transfer coefficients of evaporator and condenser coils.",
+},
+{
+  "id": "mechanical-heat-pump-trainer-combined",
+  "name": "MECHANICAL HEAT PUMP TRAINER (Combined Water to Water & Water to Air)",
+
+  "short": "A versatile, fully instrumented mechanical heat pump trainer with switchable condenser (water-cooled or air-cooled) to demonstrate water-to-water and water-to-air heat pump cycles, perform complete energy balance, calculate actual/theoretical/Carnot COPs, and determine heat transfer coefficients.",
+},
+
+
+      { section: "CUT SECTION MODELS" },
+      { id: "hermetic-comp", name: "Hermetic Compressor Cut Section", short: "Internal rotary/hermetic compressor." },
+      { id: "evaporator", name: "Evaporator & Condenser Cut Section", short: "Tube-in-tube & finned type visible." },
+      {section: "ICE PLANT Trainer" },
+      {"id": "ice-plant-4kg",
+  "name": "ICE PLANT TRAINER (4 kg / 4 HOURS CYCLE)",
+  "img": "labs/images/rac/ice-plant-4kg.jpg",
+
+  "short": "A compact laboratory ice plant trainer that demonstrates the complete ice formation cycle (bubbles, flakes, and solid ice) within 4 hours, specially designed for educational use.",
+},
+
+{
+  "id": "ice-plant-10kg",
+  "name": "ICE PLANT TRAINER (10 kg / 4 HOURS CYCLE)",
+
+  "short": "A compact educational ice plant trainer with 10 kg ice making capacity that completes the full ice formation cycle (bubbles, flakes to solid ice) within 4 hours, ideal for laboratory demonstration."},
+
+{section:" TRAINER"},
+{"id": "water-cooler-trainer",
+  "name": "WATER COOLER TRAINER",
+
+  "short": "A compact water cooler trainer that demonstrates the vapour compression refrigeration cycle for cooling water, allowing performance analysis including COP, cooling capacity, and power consumption using R-134a refrigerant.",
+},
+
+
+{"id": "desert-cooler-trainer",
+  "name": "DESERT COOLER TRAINER",
+
+  "short": "A fully functional evaporative desert cooler trainer designed to demonstrate the principle of evaporative cooling and enable students to study the performance characteristics of a desert cooler at different air and water flow rates.",
+},
+
+
+
+{
+  "id": "vortex-tube-demonstrator",
+  "name": "VORTEX TUBE DEMONSTRATOR",
+
+  "short": "A compact setup to demonstrate the principle of vortex tube refrigeration effect, where high-pressure air is separated into distinct hot and cold streams without any moving parts or refrigerant.",
+},
+
+{"id": "cold-storage-test-rig",
+  "name": "COLD STORAGE TEST RIG",
+  "short": "A fully instrumented cold storage trainer with insulated cabinet and variable loading to study the performance of a vapour compression refrigeration system under different storage conditions, determine actual COP, refrigerating effect, power consumption and visualize automatic defrost/control operation.",},
+];
+
+
+    let html = "";
+    let gridOpen = false;
+
+    data.forEach(item => {
+      if (item.section) {
+        if (gridOpen) html += `</div>`;
+        html += `<h2 class="section-title">${item.section}</h2>`;
+        html += `<div class="lab-grid">`;
+        gridOpen = true;
+      } else {
+        html += `
+          <div class="card" data-name="${item.name.toLowerCase()}"
+               onclick="location.href='../equipments/equipment.html?id=${item.id}'">
+            <div class="card-top">  
+            </div>
+            <div class="card-body">
+              <h3>${item.name}</h3>
+              <p>${item.short}</p>
+            </div>
+          </div>`;
+      }
+    });
+
+    if (gridOpen) html += `</div>`;
+    document.getElementById("labContainer").innerHTML = html;
+
+    // SEARCH
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(card => {
+        card.style.display = card.dataset.name.includes(q) ? "" : "none";
+      });
+    });
+  </script>
+
+  <!-- Floating Home Button -->
+  <a href="../index.html" class="home-btn">
+    <i class="fas fa-home"></i>
+  </a>
+
+</body>
+
+</html>

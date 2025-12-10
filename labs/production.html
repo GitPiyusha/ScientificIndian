@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Engineering Lab</title>
+
+  <!-- Font Awesome for Hamburger -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- MAIN LAB CSS (same navbar styling as other pages) -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    /* ===== NAVBAR (Same Style Across All Pages) ===== */
+    .navbar {
+       background: #111;
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+      color: #ff4d4d;
+    font-size: clamp(1.4rem, 5vw, 1.9rem); /* Auto-scales perfectly */
+    font-weight: 900;
+    font-family: 'Lucida Handwriting', cursive;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70vw;
+    }
+
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      font-size: 28px;
+      color: white;
+    }
+
+    .menu {
+      position: absolute;
+      top: 75px;
+      right: 20px;
+      width: 260px;
+      background: #222;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+      padding: 15px 0;
+      display: none;
+      flex-direction: column;
+    }
+
+    .menu.open {
+      display: flex;
+    }
+
+    .menu li {
+      list-style: none;
+    }
+
+    .menu li a {
+      display: block;
+      padding: 12px 22px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .menu li a:hover {
+      background: #ff4d4d;
+      transform: scale(1.05);
+    }
+
+    /* ==== PAGE HEADER ==== */
+    .page-header {
+      text-align: center;
+      padding: 80px 5% 50px;
+      color: white;
+      background: linear-gradient(to right, hsl(0, 66%, 54%), hsl(0, 88%, 56%));
+      margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+     font-size: clamp(2rem, 7vw, 3rem);
+    margin-bottom: 12px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    .page-header p {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+    opacity: 0.95;
+    max-width: 800px;
+    margin: 0 auto;
+    }
+
+    /* SEARCH */
+    .search-box {
+       max-width: 700px;
+    margin: 0 auto 50px;
+    padding: 0 5%;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 16px 26px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 40px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      outline: none;
+    }
+
+    /* GRID + CARDS */
+    #labContainer {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 5% 100px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #d32f2f;
+      margin: 70px 0 40px;
+      border-bottom: 5px solid #ff4d4d;
+      width: fit-content;
+      padding-bottom: 10px;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(255, 77, 77, 0.25);
+    }
+
+    .card img {
+        width: 80%;
+        height: 220px;
+    object-fit: cover;
+     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+
+    .card-body {
+      padding: 15px;
+       background: #fff;
+  color: #333;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      color: #d32f2f;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .lab-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo" style="font-family:'Lucida Handwriting', cursive;">Scientific Indian</a>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="menu">
+      <li><a href="thermo.html" onclick="closeMenu()">Thermodynamics</a></li>
+      <li><a href="tom.html" onclick="closeMenu()">Theory Of Mechanics</a></li>
+      <li><a href="fluid.html" onclick="closeMenu()">Fluid Mechanics</a></li>
+      <li><a href="fm.html" onclick="closeMenu()">Fluid Machines</a></li>
+      <li><a href="heat.html" onclick="closeMenu()">Heat Transfer</a></li>
+      <li><a href="rac.html" onclick="closeMenu()">Refrigeration & Air Conditioning</a></li>
+      <li><a href="ic.html" onclick="closeMenu()">IC Engines</a></li>
+      <li><a href="production.html" onclick="closeMenu()">Production Engineering</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>Production Engineering Lab</h1>
+    <p>Precision tools • Dynamometers • Demonstration models • Fluid power trainers</p>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search equipment...">
+  </div>
+
+  <!-- CONTENT -->
+  <main id="labContainer"></main>
+
+  <!-- MENU SCRIPT -->
+  <script>
+    function toggleMenu() {
+      document.querySelector(".menu").classList.toggle("open");
+    }
+
+    function closeMenu() {
+      document.querySelector(".menu").classList.remove("open");
+    }
+  </script>
+
+  <!-- DATA + RENDER SCRIPT -->
+<script>
+  const data = [
+    { section: "TOOL DYNAMOMETERS" },
+    { id: "lathe-tool-dynamometer", name: "LATHE TOOL DYNAMOMETER (2 & 3 Component)", img: "labs/images/fm/lathe-tool-dynamometer.jpg", short: "Strain gauge based dynamometer to measure cutting forces in turning.", notes:"All types of LATHE TOOL DYNAMOMETER " },
+    { id: "drill-tool-dynamometer", name: "DRILL TOOL DYNAMOMETER", img: "labs/images/fm/drill-tool-dynamometer.jpg", short: "Measures thrust force and torque during drilling." },
+    { id: "milling-tool-dynamometer", name: "MILLING TOOL DYNAMOMETER", img: "labs/images/fm/milling-tool-dynamometer.jpg", short: "Three-component octagonal ring type for milling forces." },
+    { id: "grinding-tool-dynamometer", name: "GRINDING TOOL DYNAMOMETER", img: "labs/images/fm/grinding-tool-dynamometer.jpg", short: "Measures tangential, axial & radial forces in grinding." }
+  ];
+
+  const container = document.getElementById("labContainer");
+  let html = "";
+  let gridOpen = false;
+
+  // 🔴 Gradient colors (same as Fluid Machines Lab)
+  function randomGradient() {
+    const colors = [
+      ["#ff4d4d", "#ff7a7a"],
+      ["#ff3b3b", "#ff9999"],
+      ["#d62828", "#f77f7f"],
+      ["#ff5f5f", "#ffb2b2"],
+      ["#e63946", "#ff8fa3"],
+      ["#ff4040", "#ff6b6b"]
+    ];
+    const pick = colors[Math.floor(Math.random() * colors.length)];
+    return `linear-gradient(135deg, ${pick[0]}, ${pick[1]})`;
+  }
+
+  data.forEach(item => {
+    if (item.section) {
+      if (gridOpen) html += `</div>`;
+      html += `<h2 class="section-title">${item.section}</h2>`;
+      html += `<div class="lab-grid">`;
+      gridOpen = true;
+    } else {
+      html += `
+        <div class="card" data-name="${item.name.toLowerCase()}"
+             onclick="location.href='../equipments/equipment.html?id=${item.id}'">
+          <div class="card-image" style="background:${randomGradient()};">
+            <img src="${item.img}" alt="${item.name}" loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/340x240?text=No+Image'">
+          </div>
+          <div class="card-body">
+            <h3>${item.name}</h3>
+            <p>${item.short}</p>
+          </div>
+        </div>`;
+    }
+  });
+
+  if (gridOpen) html += `</div>`;
+  container.innerHTML = html;
+
+  // SEARCH
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(card => {
+      card.style.display = card.dataset.name.includes(q) ? "" : "none";
+    });
+  });
+</script>
+
+
+<!-- Floating Home Button -->
+<a href="../index.html" class="home-btn">
+  <i class="fas fa-home"></i>
+</a>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluid Machines Lab</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- LAB PAGE CSS -->
+  <link rel="stylesheet" href="lab.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo" style="font-family:'Lucida Handwriting', cursive;">Scientific Indian</a>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="menu">
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="tom.html">Theory Of Mechanics</a></li>
+      <li><a href="fluid.html">Fluid Mechanics</a></li>
+      <li><a href="fm.html">Fluid Machines</a></li>
+      <li><a href="heat.html">Heat Transfer</a></li>
+      <li><a href="rac.html">Refrigeration & Air Conditioning</a></li>
+      <li><a href="ic.html">IC Engines</a></li>
+      <li><a href="production.html">Production Engineering</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== PAGE TITLE ===== -->
+  <section class="lab-header" style="background: linear-gradient(to right, hsl(0, 66%, 54%), hsl(0, 88%, 56%));">
+    <h2>Fluid Machines Lab</h2>
+    <p>Explore all equipment used for fluid machinery experiments.</p>
+  </section>
+
+  <!-- ===== SEARCH BOX ===== -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search equipment..." onkeyup="filterCards()">
+  </div>
+
+  <!-- ===== CARD GRID ===== -->
+  <section class="lab-grid" id="labContainer"></section>
+
+  <!-- LAB DATA -->
+  <script src="../data/lab-data.js"></script>
+
+  <!-- MENU SCRIPT -->
+  <script>
+    const menu = document.querySelector(".menu");
+    const hamburger = document.querySelector(".hamburger");
+
+    function toggleMenu() {
+      menu.classList.toggle("open");
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove("open");
+      }
+    });
+
+    document.querySelectorAll(".menu a").forEach(link => {
+      link.addEventListener("click", () => menu.classList.remove("open"));
+    });
+  </script>
+
+  <!-- CARDS SCRIPT -->
+  <script>
+    const labContainer = document.getElementById("labContainer");
+    const searchInput = document.getElementById("searchInput");
+    const data = labData.fm; // ✅ Fluid Machines data
+
+    function randomGradient() {
+      const colors = [
+        ["#ff4d4d", "#ff7a7a"],
+        ["#ff3b3b", "#ff9999"],
+        ["#d62828", "#f77f7f"],
+        ["#ff5f5f", "#ffb2b2"],
+        ["#e63946", "#ff8fa3"],
+        ["#ff4040", "#ff6b6b"]
+      ];
+
+      const pick = colors[Math.floor(Math.random() * colors.length)];
+      return `linear-gradient(135deg, ${pick[0]}, ${pick[1]})`;
+    }
+
+    function loadCards() {
+      labContainer.innerHTML = "";
+
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "lab-card";
+        card.dataset.name = item.name.toLowerCase();
+        card.onclick = () => location.href = `../equipments/equipment.html?id=${item.id}`;
+
+        card.innerHTML = `
+          <div class="card-banner" style="background:${randomGradient()}"></div>
+          <h4>${item.name}</h4>
+          <p>${item.short}</p>
+        `;
+
+        labContainer.appendChild(card);
+      });
+    }
+
+    function filterCards() {
+      const q = searchInput.value.toLowerCase();
+
+      document.querySelectorAll(".lab-card").forEach(card => {
+        card.style.display = card.dataset.name.includes(q) ? "block" : "none";
+      });
+    }
+
+    loadCards();
+  </script>
+
+  <!-- Floating Home Button -->
+  <a href="../index.html" class="home-btn">
+    <i class="fas fa-home"></i>
+  </a>
+
+</body>
+</html>
